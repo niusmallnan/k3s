@@ -50,7 +50,7 @@ fi
 
 CMD_NAME=dist/artifacts/k3s${BIN_SUFFIX}
 
-"${GO}" generate
+CC="gcc" GOARCH=amd64 "${GO}" generate
 LDFLAGS="
     -X github.com/rancher/k3s/pkg/version.Version=$VERSION
     -X github.com/rancher/k3s/pkg/version.GitCommit=${COMMIT:0:8}
@@ -61,4 +61,4 @@ CGO_ENABLED=0 "${GO}" build -ldflags "$LDFLAGS $STATIC" -o ${CMD_NAME} ./cmd/k3s
 
 stat ${CMD_NAME}
 
-./scripts/build-upload ${CMD_NAME} ${COMMIT}
+#./scripts/build-upload ${CMD_NAME} ${COMMIT}
